@@ -1,0 +1,41 @@
+customer_id,tenure,monthly_charges,total_charges,contract_type,internet_service,churn
+1,12,65.5,786.0,Month-to-month,Fiber optic,1
+2,34,89.0,3026.0,One year,DSL,0
+3,5,45.0,225.0,Month-to-month,No,1
+4,60,100.0,6000.0,Two year,Fiber optic,0
+5,2,70.0,140.0,Month-to-month,Fiber optic,1
+6,48,55.5,2664.0,One year,DSL,0
+7,1,75.0,75.0,Month-to-month,Fiber optic,1
+8,72,90.0,6480.0,Two year,DSL,0
+9,18,60.0,1080.0,Month-to-month,No,0
+10,36,85.0,3060.0,One year,Fiber optic,0
+11,3,55.0,165.0,Month-to-month,DSL,1
+12,24,95.0,2280.0,Month-to-month,Fiber optic,1
+13,56,50.0,2800.0,Two year,No,0
+14,9,70.0,630.0,Month-to-month,Fiber optic,1
+15,42,80.0,3360.0,One year,DSL,0
+16,6,65.0,390.0,Month-to-month,Fiber optic,1
+17,66,92.5,6105.0,Two year,Fiber optic,0
+18,15,58.0,870.0,Month-to-month,DSL,0
+19,28,77.5,2170.0,One year,Fiber optic,0
+20,4,72.0,288.0,Month-to-month,Fiber optic,1
+21,50,48.0,2400.0,Two year,No,0
+22,11,68.0,748.0,Month-to-month,Fiber optic,1
+23,38,82.0,3116.0,One year,DSL,0
+24,7,63.0,441.0,Month-to-month,Fiber optic,1
+25,20,91.0,1820.0,Month-to-month,Fiber optic,0
+26,54,53.0,2862.0,Two year,DSL,0
+27,8,74.0,592.0,Month-to-month,Fiber optic,1
+28,44,87.0,3828.0,One year,Fiber optic,0
+29,16,61.0,976.0,Month-to-month,No,0
+30,62,99.0,6138.0,Two year,Fiber optic,0
+31,10,67.0,670.0,Month-to-month,DSL,1
+32,30,78.0,2340.0,One year,Fiber optic,0
+33,46,51.0,2346.0,Two year,No,0
+34,13,73.0,949.0,Month-to-month,Fiber optic,1
+35,26,84.0,2184.0,One year,DSL,0
+36,19,59.0,1121.0,Month-to-month,Fiber optic,1
+37,58,96.0,5568.0,Two year,Fiber optic,0
+38,22,76.0,1672.0,Month-to-month,DSL,0
+39,40,88.0,3520.0,One year,Fiber optic,0
+40,14,64.0,896.0,Month-to-month,Fiber optic,1
