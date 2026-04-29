@@ -1,33 +1,13 @@
 import { useState } from 'react';
 import Header from './components/Header';
 import PredictForm from './components/PredictForm';
-import RunHistory from './components/RunHistory';
-import Footer from './components/Footer';
-
-const STORAGE_KEY = 'predictionHistory';
-const MAX_HISTORY = 20;
+import PredictionHistory from './components/PredictionHistory';
 
 export default function App() {
-  const [history, setHistory] = useState(() => {
-    if (typeof window === 'undefined') {
-      return [];
-    }
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [historyTrigger, setHistoryTrigger] = useState(0);
 
-  function handlePrediction(entry) {
-    setHistory((prev) => {
-      const next = [entry, ...prev].slice(0, MAX_HISTORY);
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      }
-      return next;
-    });
+  function handlePrediction() {
+    setHistoryTrigger((n) => n + 1);
   }
 
   return (
@@ -35,9 +15,8 @@ export default function App() {
       <Header />
       <main>
         <PredictForm onPrediction={handlePrediction} />
-        <RunHistory runs={history} />
+        <PredictionHistory refreshTrigger={historyTrigger} />
       </main>
-      <Footer />
     </>
   );
 }

@@ -27,7 +27,7 @@ const FIELDS = [
   { key: 'Week', label: 'Week (1–52)', type: 'number', min: 1, max: 52, step: 1 },
 ];
 
-export default function PredictForm() {
+export default function PredictForm({ onPrediction }) {
   const [form, setForm] = useState(DEFAULT_VALUES);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -54,6 +54,7 @@ export default function PredictForm() {
       }
       const data = await res.json();
       setResult(data.prediction);
+      if (onPrediction) onPrediction();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -92,7 +93,7 @@ export default function PredictForm() {
             ))}
           </div>
           <button type="submit" className={styles.btn} disabled={loading}>
-            {loading ? 'Predicting…' : 'Get Prediction'}
+            {loading ? 'Predicting…' : 'Start Prediction'}
           </button>
         </form>
 
