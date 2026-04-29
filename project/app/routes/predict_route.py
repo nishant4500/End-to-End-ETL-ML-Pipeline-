@@ -4,12 +4,19 @@ from app.model.load_model import load_model
 from app.model.predict import make_prediction
 import logging
 import numpy as np
+from datetime import datetime, timezone
+from typing import List, Dict, Any
 
 logging.basicConfig(level=logging.INFO)
 
 router = APIRouter()
 
 model = load_model()
+
+# In-memory prediction history (newest first, capped at 100 entries)
+_history: List[Dict[str, Any]] = []
+MAX_HISTORY = 100
+
 
 @router.get("/")
 def home():
@@ -44,4 +51,18 @@ def predict(data: InputData):
 
     logging.info(f"Prediction: {prediction}")
 
+    entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "input": data.model_dump(),
+        "prediction": prediction,
+    }
+    _history.insert(0, entry)
+    if len(_history) > MAX_HISTORY:
+        _history.pop()
+
     return {"prediction": prediction}
+
+
+@router.get("/history")
+def get_history():
+    return {"history": _history}

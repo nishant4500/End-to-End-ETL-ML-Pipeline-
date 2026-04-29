@@ -6,14 +6,11 @@ export default function Header() {
       <div className={styles.inner}>
         <div className={styles.brand}>
           <span className={styles.logo}>⚡</span>
-          <span className={styles.title}>ETL / ML Pipeline</span>
+          <span className={styles.title}>Sales Predictor</span>
         </div>
         <nav className={styles.nav}>
-          <a href="#overview">Overview</a>
-          <a href="#status">Status</a>
-          <a href="#history">History</a>
-          <a href="#metrics">Metrics</a>
           <a href="#predict">Predict</a>
+          <a href="#history">History</a>
         </nav>
       </div>
     </header>
