@@ -15,6 +15,71 @@ uvicorn app.main:app --reload
 # API available at http://localhost:8000
 ```
 
+---
+
+## Docker / Container deployment
+
+### Build and run locally
+
+```bash
+# From the repo root
+docker build -t etl-ml-backend ./project
+docker run -p 8000:8000 etl-ml-backend
+# API available at http://localhost:8000
+```
+
+### Deploy to Azure App Service for Containers
+
+The CI/CD workflow at `.github/workflows/azure-backend-container-deploy.yml`
+builds the Docker image, pushes it to GitHub Container Registry, and deploys
+it to Azure App Service for Containers automatically on every push to `main`
+that touches the `project/` directory.
+
+#### Prerequisites
+
+1. Create an **Azure App Service** (Linux) with the **Docker Container**
+   publish option and note the app name.
+2. In the App Service → **Configuration → Application settings**, add:
+   | Setting | Value |
+   |---|---|
+   | `WEBSITES_PORT` | `8000` |
+3. Add the following **GitHub repository secrets**:
+   | Secret | Description |
+   |---|---|
+   | `AZURE_CLIENT_ID` | App registration client ID (for OIDC federated credential) |
+   | `AZURE_TENANT_ID` | Azure AD tenant ID |
+   | `AZURE_SUBSCRIPTION_ID` | Azure subscription ID |
+   | `AZURE_WEBAPP_NAME` | Your App Service name (e.g. `my-etl-backend`) |
+
+   > **OIDC setup (recommended):** Create a federated credential on your app
+   > registration for GitHub Actions (`repo:<org>/<repo>:ref:refs/heads/main`)
+   > and grant the service principal the **Contributor** role on the App Service.
+   > The workflow uses `azure/login@v2` with `client-id`, `tenant-id`, and
+   > `subscription-id` inputs – no long-lived secrets required.
+
+#### Manual deploy (one-time)
+
+```bash
+# Build & tag
+docker build -t <registry>/etl-ml-backend:latest ./project
+
+# Push
+docker push <registry>/etl-ml-backend:latest
+
+# Deploy via Azure CLI
+az webapp config container set \
+  --name <AZURE_WEBAPP_NAME> \
+  --resource-group <RESOURCE_GROUP> \
+  --docker-custom-image-name <registry>/etl-ml-backend:latest
+```
+
+#### Environment variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `PORT` | `8000` | Port uvicorn listens on inside the container |
+| `WEBSITES_PORT` | `8000` | Tells Azure App Service which internal port to expose |
+
 ### API Endpoints
 
 | Method | Path       | Description                                  |
